@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Blast Pro - Dashboard Premium</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .dashboard-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: flex;
+            gap: 25px;
+            min-height: calc(100vh - 40px);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== SIDEBAR KIRI ========== */
+        .sidebar {
+            width: 280px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 30px 0;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+
+        .logo-section {
+            padding: 0 25px 30px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+        }
+
+        .logo-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            animation: pulse 2s ease-in-out infinite;
+            display: block;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .logo-title {
+            font-size: 24px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 5px;
+        }
+
+        .logo-subtitle {
+            font-size: 12px;
+            color: #64748b;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-section {
+            padding: 10px 15px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 16px 20px;
+            margin-bottom: 8px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            font-size: 15px;
+            color: #64748b;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-item:hover {
+            background: linear-gradient(to right, rgba(102, 126, 234, 0.1), transparent);
+            color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.1));
+            color: #667eea;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .nav-item.active::before {
+            transform: scaleY(1);
+        }
+
+        .nav-icon {
+            font-size: 22px;
+            width: 28px;
+            text-align: center;
+        }
+
+        .premium-badge {
+            margin: 20px 15px;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .premium-badge-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .premium-badge-text {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main-content {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 40px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .header h1 {
+            font-size: 38px;
+            font-weight: 900;
+            margin-bottom: 8px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.95;
+            font-weight: 500;
+        }
+
+        .content {
+            padding: 50px;
+            background: #fafbfc;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 38px;
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: #64748b;
+            font-size: 17px;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 45px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+            transition: transform 0.6s;
+        }
+
+        .stat-card:hover::before {
+            transform: translate(-25%, -25%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .stat-card:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 15px 45px rgba(245, 87, 108, 0.3);
+        }
+
+        .stat-card:nth-child(2):hover {
+            box-shadow: 0 25px 60px rgba(245, 87, 108, 0.4);
+        }
+
+        .stat-card:nth-child(3) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            box-shadow: 0 15px 45px rgba(0, 242, 254, 0.3);
+        }
+
+        .stat-card:nth-child(3):hover {
+            box-shadow: 0 25px 60px rgba(0, 242, 254, 0.4);
+        }
+
+        .stat-card:nth-child(4) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            box-shadow: 0 15px 45px rgba(67, 233, 123, 0.3);
+        }
+
+        .stat-card:nth-child(4):hover {
+            box-shadow: 0 25px 60px rgba(67, 233, 123, 0.4);
+        }
+
+        .stat-label {
+            font-size: 15px;
+            opacity: 0.95;
+            margin-bottom: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .stat-value {
+            font-size: 48px;
+            font-weight: 900;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(to bottom, #ffffff, #f8fafc);
+            color: #475569;
+            border: 2px solid #e2e8f0;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+            border-color: #cbd5e0;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565 0%, #c53030 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            box-shadow: 0 10px 30px rgba(245, 101, 101, 0.3);
+        }
+
+        .btn-danger:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(245, 101, 101, 0.5);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #fc8181, #f56565);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(252, 129, 129, 0.3);
+        }
+
+        .btn-delete:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(252, 129, 129, 0.5);
+        }
+
+        .btn-block {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 15px;
+            letter-spacing: 0.3px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: white;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .session-card, .contact-card, .template-card, .schedule-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .session-card:hover, .contact-card:hover, .template-card:hover, .schedule-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 25px;
+        }
+
+        .session-header h3 {
+            color: #1e293b;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-top: 10px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .status-badge.connected {
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            color: #22543d;
+            box-shadow: 0 4px 15px rgba(34, 84, 61, 0.2);
+        }
+
+        .status-badge.disconnected {
+            background: linear-gradient(135deg, #fed7d7, #fc8181);
+            color: #742a2a;
+            box-shadow: 0 4px 15px rgba(116, 42, 42, 0.2);
+        }
+
+        .status-badge.sent {
+            background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+            color: #22543d;
+            box-shadow: 0 4px 15px rgba(34, 84, 61, 0.2);
+        }
+
+        .status-badge.failed {
+            background: linear-gradient(135deg, #fed7d7, #fc8181);
+            color: #742a2a;
+            box-shadow: 0 4px 15px rgba(116, 42, 42, 0.2);
+        }
+
+        .status-badge.pending {
+            background: linear-gradient(135deg, #feebc8, #fbd38d);
+            color: #7c2d12;
+            box-shadow: 0 4px 15px rgba(124, 45, 18, 0.2);
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            padding: 25px;
+            background: linear-gradient(to bottom, #f8fafc, #ffffff);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) inset;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .stat-value {
+            font-size: 36px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-item .stat-label {
+            font-size: 14px;
+            color: #64748b;
+            margin-top: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .table th {
+            background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+            padding: 18px 20px;
+            text-align: left;
+            font-weight: 700;
+            color: #475569;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .table td {
+            padding: 18px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .table tr:hover {
+            background: linear-gradient(to right, rgba(102, 126, 234, 0.03), transparent);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #94a3b8;
+        }
+
+        .empty-state p {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.6;
+        }
+
+        .empty-state h3 {
+            margin: 20px 0;
+            color: #475569;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 30px;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            padding: 50px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-modal {
+            float: right;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: all 0.3s;
+            line-height: 1;
+        }
+
+        .close-modal:hover {
+            color: #475569;
+            transform: rotate(90deg);
+        }
+
+        .contact-card h3, .template-card h3, .schedule-card h3 {
+            color: #1e293b;
+            margin-bottom: 12px;
+            font-weight: 800;
+            font-size: 22px;
+        }
+
+        .contact-stats {
+            color: #64748b;
+            margin: 15px 0;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .template-preview {
+            color: #64748b;
+            font-size: 15px;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+
+        #sessions-container, #contacts-container, #templates-container, #schedules-container {
+            display: grid;
+            gap: 25px;
+        }
+
+        .blast-form {
+            max-width: 900px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+            border: 2px solid #f1f5f9;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: relative;
+                top: 0;
+                max-height: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- SIDEBAR KIRI -->
+        <div class="sidebar">
+            <div class="logo-section">
+                <span class="logo-icon">🚀</span>
+                <div class="logo-title">WA Blast Pro</div>
+                <div class="logo-subtitle">Premium Edition</div>
+            </div>
+
+            <div class="nav-section">
+                <div class="nav-item active" data-tab="overview">
+                    <span class="nav-icon">📊</span>
+                    <span>Ringkasan</span>
+                </div>
+                <div class="nav-item" data-tab="sessions">
+                    <span class="nav-icon">📱</span>
+                    <span>Sesi</span>
+                </div>
+                <div class="nav-item" data-tab="blast">
+                    <span class="nav-icon">📤</span>
+                    <span>Kirim Blast</span>
+                </div>
+                <div class="nav-item" data-tab="contacts">
+                    <span class="nav-icon">👥</span>
+                    <span>Kontak</span>
+                </div>
+                <div class="nav-item" data-tab="templates">
+                    <span class="nav-icon">📝</span>
+                    <span>Template</span>
+                </div>
+                <div class="nav-item" data-tab="schedules">
+                    <span class="nav-icon">⏰</span>
+                    <span>Jadwal</span>
+                </div>
+                <div class="nav-item" data-tab="analytics">
+                    <span class="nav-icon">📈</span>
+                    <span>Analitik</span>
+                </div>
+            </div>
+
+            <div class="premium-badge">
+                <div class="premium-badge-icon">⭐</div>
+                <div class="premium-badge-text">Premium</div>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT KANAN -->
+        <div class="main-content">
+            <div class="header">
+                <div class="header-content">
+                    <h1>WhatsApp Blast Pro</h1>
+                    <p>Sistem Kirim Pesan Massal dengan Anti-Banned Technology</p>
+                </div>
+            </div>
+
+            <div class="content">
+                <!-- Overview Tab -->
+                <section id="overview-tab" class="tab-content active">
+                    <div class="page-header">
+                        <h1>Dashboard Ringkasan</h1>
+                        <p>Statistik lengkap dan aktivitas sistem Anda</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">📱 Total Sesi Aktif</div>
+                            <div class="stat-value" id="stat-sessions">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">📤 Pesan Hari Ini</div>
+                            <div class="stat-value" id="stat-today">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">👥 Daftar Kontak</div>
+                            <div class="stat-value" id="stat-contacts">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">⏰ Blast Terjadwal</div>
+                            <div class="stat-value" id="stat-scheduled">0</div>
+                        </div>
+                    </div>
+
+                    <h2 style="margin-bottom: 25px; font-size: 28px; font-weight: 800; color: #1e293b;">Aktivitas Terbaru</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Sesi</th>
+                                <th>Penerima</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="activity-tbody">
+                            <tr>
+                                <td colspan="4" style="text-align: center; color: #94a3b8;">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Sessions Tab -->
+                <section id="sessions-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1>Kelola Sesi WhatsApp</h1>
+                        <p>Buat dan kelola koneksi WhatsApp unlimited</p>
+                    </div>
+
+                    <button class="btn-primary" id="btn-create-session" style="margin-bottom: 40px;">
+                        ➕ Buat Sesi Baru
+                    </button>
+
+                    <div id="sessions-container"></div>
+                </section>
+
+                <!-- Blast Tab -->
+                <section id="blast-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1>Kirim Blast Premium</h1>
+                        <p>7 mode blast dengan anti-detection technology</p>
+                    </div>
+                    
+                    <div class="blast-form">
+                        <div class="form-group">
+                            <label>Pilih Sesi</label>
+                            <select id="blast-session" class="form-control">
+                                <option value="">Pilih sesi...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Pilih Daftar Kontak</label>
+                            <select id="blast-contacts" class="form-control">
+                                <option value="">Pilih daftar kontak...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Template Pesan (Opsional)</label>
+                            <select id="blast-template" class="form-control">
+                                <option value="">Pilih template atau tulis manual...</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Pesan</label>
+                            <textarea id="blast-message" class="form-control" rows="6" placeholder="Tulis pesan Anda di sini..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Jeda Antar Pesan (detik)</label>
+                            <input type="number" id="blast-delay" class="form-control" value="3" min="0" max="10" step="0.5">
+                            <small style="color: #64748b; margin-top: 8px; display: block; font-weight: 500;">
+                                0 = instan (risiko sangat tinggi), 2-5 = aman, 5-10 = sangat aman
+                            </small>
+                        </div>
+
+                        <div class="form-group">
+                            <label>🛡️ Mode Anti-Deteksi</label>
+                            <select id="blast-mode" class="form-control">
+                                <option value="safe">🟢 Mode Aman (50/jam, risiko minimal)</option>
+                                <option value="aggressive" selected>🟡 Agresif (200/jam, risiko sedang)</option>
+                                <option value="insane">🔴 Ekstrim (1000/jam, risiko tinggi)</option>
+                            </select>
+                            <small style="color: #64748b; margin-top: 8px; display: block; font-weight: 500;">
+                                Aman: variasi pesan + jeda natural + istirahat | Agresif: lebih cepat | Ekstrim: kecepatan maksimal
+                            </small>
+                        </div>
+                        
+                        <!-- Main Blast Buttons -->
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 30px;">
+                            <button id="btn-send-blast" class="btn-primary" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                📤 Kirim Blast
+                            </button>
+
+                            <button id="btn-advanced-blast" class="btn-primary" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                🛡️ Blast Canggih
+                            </button>
+
+                            <button id="btn-stealth-instant" class="btn-primary" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                ⚫ Instan Tersembunyi
+                            </button>
+
+                            <button id="btn-instant-blast" class="btn-danger" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                                ⚡ INSTAN BLAST
+                            </button>
+                        </div>
+
+                        <div style="margin-top: 15px;">
+                            <button id="btn-validate-numbers" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                                ✅ Validasi Nomor
+                            </button>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;">
+                            <button id="btn-warmup" class="btn-primary" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                                🔥 Pemanasan Akun
+                            </button>
+                            
+                            <button id="btn-ultra-safe" class="btn-primary" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                                🛡️ Blast Ultra Aman
+                            </button>
+                        </div>
+
+                        <!-- Mode Comparison Info -->
+                        <div style="margin-top: 20px; padding: 25px; background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%); border-radius: 18px; border-left: 5px solid #667eea;">
+                            <h4 style="margin: 0 0 18px 0; font-size: 16px; color: #667eea; font-weight: 800;">📊 Perbandingan Mode Blast</h4>
+                            <div style="display: grid; gap: 12px; font-size: 14px; line-height: 1.7;">
+                                <div style="padding: 12px; background: rgba(255,255,255,0.7); border-radius: 10px;">
+                                    <strong style="color: #667eea;">📤 Kirim Blast:</strong>
+                                    <span style="color: #475569;">Mode dasar tanpa anti-deteksi</span>
+                                </div>
+                                <div style="padding: 12px; background: rgba(255,255,255,0.7); border-radius: 10px;">
+                                    <strong style="color: #f5576c;">🛡️ Blast Canggih:</strong>
+                                    <span style="color: #475569;">Variasi pesan + simulasi manusia + jeda adaptif</span>
+                                </div>
+                                <div style="padding: 12px; background: rgba(255,255,255,0.7); border-radius: 10px;">
+                                    <strong style="color: #00f2fe;">⚫ Instan Tersembunyi:</strong>
+                                    <span style="color: #475569;">Micro-delay + variasi (risiko sedang-tinggi)</span>
+                                </div>
+                                <div style="padding: 12px; background: rgba(255,255,255,0.7); border-radius: 10px;">
+                                    <strong style="color: #fee140;">⚡ Instan Blast:</strong>
+                                    <span style="color: #475569;">EKSTREM! Tanpa perlindungan (nomor sekali pakai)</span>
+                                </div>
+                                <div style="padding: 12px; background: rgba(255,255,255,0.7); border-radius: 10px;">
+                                    <strong style="color: #10b981;">✅ Validasi Nomor:</strong>
+                                    <span style="color: #475569;">Cek keberadaan nomor di WhatsApp</span>
+                                </div>
+                                <div style="padding: 12px; background: rgba(255,255,255,0.7); border-radius: 10px;">
+                                    <strong style="color: #f59e0b;">🔥 Pemanasan:</strong>
+                                    <span style="color: #475569;">Chat acak untuk simulasi aktivitas manusia</span>
+                                </div>
+                                <div style="padding: 12px; background: rgba(255,255,255,0.7); border-radius: 10px;">
+                                    <strong style="color: #8b5cf6;">🛡️ Ultra Aman:</strong>
+                                    <span style="color: #475569;">MODE TERAMAN! Validasi + Pemanasan + Pengiriman aman</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Warning Box Premium -->
+                        <div style="margin-top: 20px; padding: 25px; background: linear-gradient(135deg, #fef3c7, #fde68a); border-radius: 18px; border-left: 5px solid #f59e0b; box-shadow: 0 6px 25px rgba(245, 158, 11, 0.2);">
+                            <div style="display: flex; align-items: start; gap: 15px;">
+                                <span style="font-size: 28px;">⚠️</span>
+                                <div style="font-size: 14px; color: #92400e; line-height: 1.8; font-weight: 500;">
+                                    <strong style="display: block; margin-bottom: 8px; font-size: 16px; font-weight: 800;">Peringatan Penting:</strong>
+                                    • <strong>Blast Ultra Aman:</strong> DIREKOMENDASIKAN untuk akun bisnis<br>
+                                    • <strong>Blast Canggih:</strong> Keseimbangan terbaik speed vs safety<br>
+                                    • <strong>Validasi Nomor:</strong> Wajib sebelum blast untuk hindari nomor invalid<br>
+                                    • <strong>Pemanasan:</strong> Buat akun terlihat manusiawi sebelum blast<br>
+                                    • <strong>Instan Tersembunyi:</strong> Hanya untuk broadcast mendesak<br>
+                                    • <strong>Instan Blast:</strong> HANYA untuk nomor sekali pakai!<br>
+                                    • <strong>Selalu test</strong> dengan 5-10 nomor dulu sebelum full blast
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistics Display -->
+                        <div id="blast-stats" style="margin-top: 20px; padding: 25px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(5, 150, 105, 0.08)); border-radius: 18px; border-left: 5px solid #10b981; display: none;">
+                            <h4 style="margin: 0 0 15px 0; font-size: 16px; color: #10b981; font-weight: 800;">📊 Hasil Blast Terakhir</h4>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 12px;">
+                                    <div style="color: #64748b; font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Total</div>
+                                    <div id="stat-total" style="font-size: 32px; font-weight: 900; color: #1e293b; margin-top: 5px;">-</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 12px;">
+                                    <div style="color: #64748b; font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Sukses</div>
+                                    <div id="stat-success" style="font-size: 32px; font-weight: 900; color: #10b981; margin-top: 5px;">-</div>
+                                </div>
+                                <div style="text-align: center; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 12px;">
+                                    <div style="color: #64748b; font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Gagal</div>
+                                    <div id="stat-failed" style="font-size: 32px; font-weight: 900; color: #ef4444; margin-top: 5px;">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contacts Tab -->
+                <section id="contacts-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1>Kelola Kontak</h1>
+                        <p>Buat dan kelola daftar kontak untuk blast campaign</p>
+                    </div>
+
+                    <button class="btn-primary" id="btn-create-list" style="margin-bottom: 40px;">
+                        ➕ Buat Daftar Kontak Baru
+                    </button>
+
+                    <div id="contacts-container"></div>
+                </section>
+
+                <!-- Templates Tab -->
+                <section id="templates-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1>Template Pesan</h1>
+                        <p>Buat dan kelola template untuk efisiensi blast</p>
+                    </div>
+
+                    <button class="btn-primary" id="btn-create-template" style="margin-bottom: 40px;">
+                        ➕ Buat Template Baru
+                    </button>
+
+                    <div id="templates-container"></div>
+                </section>
+
+                <!-- Schedules Tab -->
+                <section id="schedules-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1>Jadwal Blast Otomatis</h1>
+                        <p>Jadwalkan blast untuk waktu optimal</p>
+                    </div>
+
+                    <button class="btn-primary" id="btn-create-schedule" style="margin-bottom: 40px;">
+                        ➕ Buat Jadwal Baru
+                    </button>
+
+                    <div id="schedules-container"></div>
+                </section>
+
+                <!-- Analytics Tab -->
+                <section id="analytics-tab" class="tab-content">
+                    <div class="page-header">
+                        <h1>Analitik & Laporan</h1>
+                        <p>Statistik lengkap pengiriman pesan Anda</p>
+                    </div>
+
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-label">✅ Total Terkirim</div>
+                            <div class="stat-value" id="analytics-sent">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">❌ Total Gagal</div>
+                            <div class="stat-value" id="analytics-failed">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">👥 Total Penerima</div>
+                            <div class="stat-value" id="analytics-recipients">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">📊 Tingkat Sukses</div>
+                            <div class="stat-value" id="analytics-rate">0%</div>
+                        </div>
+                    </div>
+
+                    <h2 style="margin-bottom: 25px; font-size: 28px; font-weight: 800; color: #1e293b;">Log Pengiriman Detail</h2>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Sesi</th>
+                                <th>Penerima</th>
+                                <th>Pesan</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="logs-tbody">
+                            <tr>
+                                <td colspan="5" style="text-align: center; color: #94a3b8;">Memuat data...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Premium -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

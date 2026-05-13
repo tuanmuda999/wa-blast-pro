@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>WA Blast Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 400px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .header {
+            padding: 20px;
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h2 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 20px;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .actions {
+            padding: 0 20px 20px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: #fff;
+            color: #667eea;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .footer {
+            padding: 15px 20px;
+            text-align: center;
+            font-size: 11px;
+            opacity: 0.7;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .status-indicator {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .status-connected {
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+        }
+
+        .status-disconnected {
+            background: #ef4444;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>🚀 WhatsApp Blast Pro</h2>
+        <p>Professional Marketing Tool</p>
+    </div>
+
+    <div class="quick-stats">
+        <div class="stat-card">
+            <div class="stat-value" id="totalSessions">0</div>
+            <div class="stat-label">Sessions</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-value" id="totalMessages">0</div>
+            <div class="stat-label">Messages Today</div>
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn btn-primary" id="openDashboard">
+            <span>🎛️</span>
+            Open Full Dashboard
+        </button>
+        
+        <button class="btn btn-secondary" id="quickBlast">
+            <span>⚡</span>
+            Quick Blast
+        </button>
+        
+        <button class="btn btn-secondary" id="manageContacts">
+            <span>📱</span>
+            Manage Contacts
+        </button>
+        
+        <button class="btn btn-secondary" id="viewAnalytics">
+            <span>📊</span>
+            View Analytics
+        </button>
+    </div>
+
+    <div class="footer">
+        <span class="status-indicator status-connected"></span>
+        Backend Connected
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+</html>
