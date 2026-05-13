@@ -1,7 +1,5 @@
 # ==================== CRITICAL SECURITY ====================
-# NEVER COMMIT THESE FILES!
-
-# WhatsApp Session Data (CRITICAL!)
+# WhatsApp Session Data
 backend/auth_sessions/
 auth_sessions/
 auth_info_*/
@@ -12,19 +10,16 @@ sender-key*.json
 session-*.json
 app-state-sync-*.json
 
-# Databases (contains user data)
+# Databases
 *.db
 *.db-shm
 *.db-wal
 *.sqlite
-*.sqlite3
 database/*.db
 
 # Environment & Secrets
 .env
-.env.local
-.env.production
-.env.*.local
+.env.*
 *.key
 *.pem
 
@@ -41,16 +36,22 @@ build/
 tmp/
 temp/
 *.tmp
-*.log
 
-# Backup files (not needed in repo)
+# ==================== BACKUPS ====================
 *.backup
 *.backup.*
 *.BACKUP
-*.old
-*.bak
 *.CONTAMINATED_*
 *.before_*
+*.old
+*.bak
+
+# ==================== DEBUG & SCRIPTS ====================
+debug-info.txt
+deploy-*.sh
+fix-*.sh
+qr-viewer.html
+sites-enabled
 
 # ==================== IDE & OS ====================
 .vscode/
@@ -63,9 +64,3 @@ Thumbs.db
 # ==================== LOGS ====================
 logs/
 *.log
-npm-debug.log*
-
-# ==================== OTHER ====================
-.cache/
-coverage/
-.nyc_output/
