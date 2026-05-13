@@ -1,48 +1,71 @@
-# Dependencies
+# ==================== CRITICAL SECURITY ====================
+# NEVER COMMIT THESE FILES!
+
+# WhatsApp Session Data (CRITICAL!)
+backend/auth_sessions/
+auth_sessions/
+auth_info_*/
+*.data.json
+creds.json
+pre-key-*.json
+sender-key*.json
+session-*.json
+app-state-sync-*.json
+
+# Databases (contains user data)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+database/*.db
+
+# Environment & Secrets
+.env
+.env.local
+.env.production
+.env.*.local
+*.key
+*.pem
+
+# ==================== DEPENDENCIES ====================
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+package-lock.json
 
-# Databases (sensitive!)
-*.db
-*.db-shm
-*.db-wal
-database.sqlite
-
-# WhatsApp session data (CRITICAL - jangan commit!)
-sessions/
-auth_info_*/
-.wwebjs_auth/
-.wwebjs_cache/
-*.data.json
-
-# Environment variables
-.env
-.env.local
-.env.production
-
-# Logs
-logs/
+# ==================== BUILD & TEMP ====================
+dist/
+build/
+tmp/
+temp/
+*.tmp
 *.log
 
-# OS files
-.DS_Store
-Thumbs.db
+# Backup files (not needed in repo)
+*.backup
+*.backup.*
+*.BACKUP
+*.old
+*.bak
+*.CONTAMINATED_*
+*.before_*
 
-# IDE
+# ==================== IDE & OS ====================
 .vscode/
 .idea/
 *.swp
 *.swo
+.DS_Store
+Thumbs.db
 
-# Backups
-*.backup.*
-*.bak
-*.old
-backup-*
+# ==================== LOGS ====================
+logs/
+*.log
+npm-debug.log*
 
-# Temporary files
-tmp/
-temp/
-*.tmp
+# ==================== OTHER ====================
+.cache/
+coverage/
+.nyc_output/
